@@ -1,0 +1,529 @@
+/* ============================================================
+   Life Dashboard — style.css
+   NFR-1: Simplicity | NFR-3: Visual Design
+   Author: Lucky Irwansyah Natawijaya
+   ============================================================ */
+
+/* ---------- 1. GOOGLE FONT IMPORT ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+/* ---------- 2. CSS CUSTOM PROPERTIES (TOKENS) ---------- */
+
+/* --- Dark Mode (default) --- */
+body.dark-mode {
+    --bg-primary:    #0f1117;
+    --bg-secondary:  #1a1d27;
+    --bg-card:       #21253a;
+    --bg-input:      #2a2f45;
+    --border-color:  #363b55;
+
+    --text-primary:  #e8eaf6;
+    --text-secondary:#9ca3c0;
+    --text-muted:    #5c6380;
+
+    --accent:        #38bdf8;
+    --accent-hover:  #7dd3fc;
+    --accent-soft:   rgba(56, 189, 248, 0.15);
+
+    --danger:        #ff6b6b;
+    --danger-hover:  #ff8e8e;
+    --success:       #4ade80;
+
+    --shadow:        0 4px 24px rgba(0, 0, 0, 0.45);
+    --shadow-sm:     0 2px 8px  rgba(0, 0, 0, 0.30);
+}
+
+/* --- Light Mode --- */
+body.light-mode {
+    --bg-primary:    #f0f2f8;
+    --bg-secondary:  #ffffff;
+    --bg-card:       #ffffff;
+    --bg-input:      #f5f6fb;
+    --border-color:  #dde1ef;
+
+    --text-primary:  #1a1d2e;
+    --text-secondary:#4b5073;
+    --text-muted:    #9ca3c0;
+
+    --accent:        #0ea5e9;
+    --accent-hover:  #0284c7;
+    --accent-soft:   rgba(14, 165, 233, 0.10);
+
+    --danger:        #e53e3e;
+    --danger-hover:  #c53030;
+    --success:       #22c55e;
+
+    --shadow:        0 4px 24px rgba(100, 108, 180, 0.12);
+    --shadow-sm:     0 2px 8px  rgba(100, 108, 180, 0.08);
+}
+
+/* ---------- 3. RESET & BASE ---------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+
+    /* Smooth theme transition */
+    transition:
+        background-color 0.35s ease,
+        color            0.35s ease;
+}
+
+/* ---------- 4. THEME TOGGLE BUTTON (pojok kanan atas) ---------- */
+.theme-toggle-container {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    z-index: 100;
+}
+
+#btn-theme-toggle {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition:
+        background-color 0.25s ease,
+        color            0.25s ease,
+        border-color     0.25s ease,
+        transform        0.15s ease,
+        box-shadow       0.25s ease;
+}
+
+#btn-theme-toggle:hover {
+    background-color: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(56, 189, 248, 0.35);
+}
+
+/* ---------- 5. MAIN DASHBOARD LAYOUT ---------- */
+#dashboard {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 3rem; /* top padding beri ruang untuk fixed toggle */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+}
+
+/* ---------- 6. SECTION CARD BASE ---------- */
+#dashboard section {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition:
+        background-color 0.35s ease,
+        border-color     0.35s ease,
+        box-shadow       0.35s ease;
+}
+
+/* Section headings (h2) */
+#dashboard section h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+/* ---------- 7. GREETING & CLOCK SECTION ---------- */
+.greeting-section {
+    grid-column: 1 / -1; /* span full width */
+    text-align: center;
+    padding: 2.5rem 2rem !important;
+}
+
+/* ★ Jam Digital — elemen terbesar & paling mencolok */
+#clock {
+    font-size: clamp(3.5rem, 10vw, 6.5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    transition: color 0.35s ease;
+}
+
+/* Greeting text (Good Morning, Name) */
+#greeting-container {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+    transition: color 0.35s ease;
+}
+
+/* Nama yang bisa diklik */
+.editable-name {
+    font-weight: 700;
+    color: var(--accent);
+    cursor: pointer;
+    border-bottom: 2px dashed var(--accent);
+    padding-bottom: 1px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.editable-name:hover {
+    color: var(--accent-hover);
+}
+
+/* Input nama tersembunyi */
+.hidden-input {
+    display: none;
+    margin: 0.6rem auto 0;
+    max-width: 280px;
+}
+
+.hidden-input.visible {
+    display: block;
+}
+
+/* Tanggal */
+#date {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+    transition: color 0.35s ease;
+}
+
+/* ---------- 8. FOCUS TIMER (POMODORO) SECTION ---------- */
+.timer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* ★ Timer Display — elemen mencolok kedua */
+#timer-display {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    transition: color 0.35s ease;
+}
+
+/* Tombol Timer */
+.timer-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.timer-buttons button {
+    padding: 0.55rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition:
+        background-color 0.2s ease,
+        transform        0.15s ease,
+        box-shadow       0.2s ease;
+}
+
+#btn-start {
+    background-color: var(--accent);
+    color: #ffffff;
+}
+
+#btn-start:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4);
+}
+
+#btn-stop {
+    background-color: var(--danger);
+    color: #ffffff;
+}
+
+#btn-stop:hover {
+    background-color: var(--danger-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+}
+
+#btn-reset {
+    background-color: var(--bg-input);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+#btn-reset:hover {
+    background-color: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* ---------- 9. TO-DO LIST SECTION ---------- */
+.todo-section {
+    /* full width di bawah clock + timer */
+    grid-column: 1 / -1;
+}
+
+/* Form tambah tugas */
+.todo-form {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.todo-form input[type="text"] {
+    flex: 1;
+}
+
+/* Daftar tugas */
+#todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 0.25rem;
+}
+
+/* Scrollbar styling */
+#todo-list::-webkit-scrollbar {
+    width: 4px;
+}
+#todo-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+#todo-list::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 999px;
+}
+
+/* Item tugas */
+#todo-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    transition:
+        background-color 0.2s ease,
+        border-color     0.2s ease;
+}
+
+#todo-list li:hover {
+    border-color: var(--accent);
+    background-color: var(--accent-soft);
+}
+
+/* Tugas yang sudah selesai */
+#todo-list li.completed span {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+/* Teks tugas — ambil sisa ruang */
+#todo-list li span {
+    flex: 1;
+}
+
+/* Tombol hapus dalam list item */
+#todo-list li button {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.4rem;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+#todo-list li button:hover {
+    color: var(--danger);
+    background-color: rgba(255, 107, 107, 0.12);
+}
+
+/* ---------- 10. QUICK LINKS SECTION ---------- */
+.links-section {
+    grid-column: 1 / -1;
+}
+
+/* Form tambah link */
+.links-form {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.links-form input[type="text"] {
+    flex: 1;
+    min-width: 140px;
+}
+
+/* Container link cards */
+#links-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Kartu link individual */
+#links-container a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.1rem;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition:
+        background-color 0.2s ease,
+        color            0.2s ease,
+        border-color     0.2s ease,
+        transform        0.15s ease,
+        box-shadow       0.2s ease;
+}
+
+#links-container a:hover {
+    background-color: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(56, 189, 248, 0.35);
+}
+
+/* ---------- 11. SHARED INPUT STYLES ---------- */
+input[type="text"] {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.65rem 1rem;
+    outline: none;
+    width: 100%;
+    transition:
+        border-color     0.2s ease,
+        background-color 0.2s ease,
+        box-shadow       0.2s ease;
+}
+
+input[type="text"]::placeholder {
+    color: var(--text-muted);
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ---------- 12. SHARED BUTTON (PRIMARY) ---------- */
+button {
+    font-family: inherit;
+}
+
+/* Tombol Add (todo & quick link) */
+#btn-add-todo,
+#btn-add-link {
+    background-color: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.65rem 1.3rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+        background-color 0.2s ease,
+        transform        0.15s ease,
+        box-shadow       0.2s ease;
+}
+
+#btn-add-todo:hover,
+#btn-add-link:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4);
+}
+
+/* ---------- 13. RESPONSIVE — TABLET & MOBILE ---------- */
+@media (max-width: 720px) {
+    #dashboard {
+        grid-template-columns: 1fr;
+        padding: 5rem 1rem 2.5rem;
+    }
+
+    .greeting-section,
+    .todo-section,
+    .links-section,
+    .timer-section {
+        grid-column: 1 / -1;
+    }
+
+    #clock {
+        font-size: clamp(3rem, 16vw, 5rem);
+    }
+
+    #timer-display {
+        font-size: clamp(2.5rem, 14vw, 4rem);
+    }
+
+    .todo-form,
+    .links-form {
+        flex-direction: column;
+    }
+
+    #btn-add-todo,
+    #btn-add-link {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    #dashboard section {
+        padding: 1.5rem;
+    }
+
+    .theme-toggle-container {
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+}

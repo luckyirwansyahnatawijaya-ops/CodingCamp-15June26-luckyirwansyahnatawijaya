@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-mode"> <!-- Default menggunakan dark mode -->
+
+    <!-- Tombol Light/Dark Mode di Pojok Kanan Atas -->
+    <div class="theme-toggle-container">
+        <button id="btn-theme-toggle">☀️ Light Mode</button>
+    </div>
+
+    <!-- Kontainer Utama Dashboard -->
+    <main id="dashboard">
+        
+        <!-- BAGIAN 1: GREETING & CLOCK (Dengan Fitur Input Nama) -->
+        <section class="greeting-section">
+            <h1 id="clock">00:00:00</h1>
+            <h2 id="greeting-container">
+                <span id="greeting-text">Good Morning</span>, 
+                <span id="display-name" class="editable-name">Guest</span>
+            </h2>
+            <!-- Input tersembunyi untuk mengubah nama saat di-klik -->
+            <input type="text" id="input-name" class="hidden-input" placeholder="Type name & press Enter...">
+            <p id="date"></p>
+        </section>
+
+        <!-- BAGIAN 2: FOCUS TIMER (POMODORO) -->
+        <section class="timer-section">
+            <h2>Focus Timer</h2>
+            <div id="timer-display">25:00</div>
+            <div class="timer-buttons">
+                <button id="btn-start">Start</button>
+                <button id="btn-stop">Stop</button>
+                <button id="btn-reset">Reset</button>
+            </div>
+        </section>
+
+        <!-- BAGIAN 3: TO-DO LIST -->
+        <section class="todo-section">
+            <h2>My Tasks</h2>
+            <div class="todo-form">
+                <input type="text" id="todo-input" placeholder="Add a new task...">
+                <button id="btn-add-todo">Add</button>
+            </div>
+            <ul id="todo-list"></ul>
+        </section>
+
+        <!-- BAGIAN 4: QUICK LINKS -->
+        <section class="links-section">
+            <h2>Quick Links</h2>
+            <div class="links-form">
+                <input type="text" id="link-name" placeholder="Website Name (e.g. Google)">
+                <input type="text" id="link-url" placeholder="URL (e.g. https://google.com)">
+                <button id="btn-add-link">Add Link</button>
+            </div>
+            <div id="links-container"></div>
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
